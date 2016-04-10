@@ -1,0 +1,11 @@
+---
+- hosts: all
+  remote_user: root
+  gather_facts: no
+  tasks:
+  - name: write the networking config file
+    copy: src=interface_default.txt dest=/etc/network/interfaces
+
+  - name: restart networking
+    shell: ifreload -a
+

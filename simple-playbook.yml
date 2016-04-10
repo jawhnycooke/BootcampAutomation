@@ -1,0 +1,18 @@
+---
+- hosts: all
+  remote_user: root
+  vars:
+    devices:
+      leaf1:
+        loopback: "10.2.1.1"
+        bond0: "192.168.10.1"
+      leaf2:
+        loopback: "10.2.1.2"
+        bond0: "192.168.10.2"
+  tasks:
+  - name: write the networking config file
+    template: src=interfaces.j2 dest=/etc/network/interfaces
+
+  - name: restart networking
+    shell: ifreload -a
+

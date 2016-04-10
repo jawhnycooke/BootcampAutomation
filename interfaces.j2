@@ -1,0 +1,19 @@
+#this file has been configured by ansible
+
+auto eth0
+iface eth0 inet dhcp
+
+auto lo
+iface lo inet loopback
+  address {{ devices[ansible_hostname].loopback }}/32
+
+auto swp1
+iface swp1
+
+auto swp2
+iface swp2
+
+auto bond0
+iface bond0
+    bond-slaves swp1 swp2
+    address {{ interfaces[ansible_hostname].bond0 }}/30

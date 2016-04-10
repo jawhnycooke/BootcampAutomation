@@ -1,0 +1,42 @@
+---
+- hosts: leaf1:leaf2
+  remote_user: cumulus
+  become: yes
+  vars:
+    devices:
+      leaf1:
+        bond_ip: "192.168.3.1/24"
+        local_net: "192.168.1.254/24"
+        remote_net: "192.168.2.0/24"
+        farside_bond_ip: "192.168.3.2"
+      leaf2:
+        bond_ip: "192.168.3.2/24"
+        local_net: "192.168.2.254/24"
+        remote_net: "192.168.1.0/24"
+        farside_bond_ip: "192.168.3.1"
+  tasks:
+  - name: Create Interface -- Bridge0
+    cl_bridge:
+      name: "bridge0"
+      ports: ['swp3','swp4',]
+      ipv4: "{{ devices[ansible_hostname].local_net }}"
+
+  - name: Create Server-facing Ports -- SWP3, SWP4
+    cl_interface:
+      name: "{{ item }}"
+      mstpctl_portadminedge: yes
+      mstpctl_bpduguard: yes
+    with_items: ['swp3','swp4']
+
+  - name: Create Interface -- Bond0
+    cl_bond: name="bond0"  slaves="swp1-2" ipv4="{{ devices[ansible_hostname].bond_ip }}"
+
+  - name: Read Files in the /etc/network/interfaces.d/ Directory for Interface Configuration too
+    lineinfile: dest=/etc/network/interfaces state=present line='source /etc/network/interfaces.d/*' insertbefore=EOF
+
+  - name: Reapply Networking Configuration
+    shell: ifreload -a
+
+  - name: Add a Static Route to the Peer Device's Subnet
+    shell: ip route add {{ devices[ansible_hostname].remote_net }} via {{ devices[ansible_hostname].farside_bond_ip }} dev bond0
+    ignore_errors: yes
