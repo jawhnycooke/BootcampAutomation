@@ -16,4 +16,4 @@ iface swp2
 auto bond0
 iface bond0
     bond-slaves swp1 swp2
-    address {{ interfaces[ansible_hostname].bond0 }}/30
+    address {{ devices[ansible_hostname].bond0 }}/30
