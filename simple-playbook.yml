@@ -3,10 +3,10 @@
   remote_user: root
   vars:
     devices:
-      leaf1:
+      leaf01:
         loopback: "10.2.1.1"
         bond0: "192.168.10.1"
-      leaf2:
+      leaf02:
         loopback: "10.2.1.2"
         bond0: "192.168.10.2"
   tasks:
@@ -15,4 +15,3 @@
 
   - name: restart networking
     shell: ifreload -a
-
