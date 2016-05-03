@@ -1,5 +1,7 @@
 - hosts: all         # Run this against all Hosts in the ansible inventory file
-  become: yes        # Becomes the Root user during execution on the remote device
+  remote_user: cumulus
+  become: yes
+  become_method: sudo
   gather_facts: no   # Don't query the remote node for any identifying information before running tasks
   tasks:             # All of these tasks are executed on the remote device
     - name: Make a ".ssh" Directory for the Cumulus user
@@ -13,4 +15,3 @@
 
     - name: Copy our Authorized Key to the Root user
       copy: src=/home/cumulus/.ssh/id_rsa.pub dest=/root/.ssh/authorized_keys
-

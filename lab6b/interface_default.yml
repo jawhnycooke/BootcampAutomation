@@ -1,6 +1,8 @@
 ---
 - hosts: all
-  remote_user: root
+  remote_user: cumulus
+  become: yes
+  become_method: sudo
   gather_facts: no
   tasks:
   - name: write the networking config file
@@ -8,4 +10,3 @@
 
   - name: restart networking
     shell: ifreload -a
-
