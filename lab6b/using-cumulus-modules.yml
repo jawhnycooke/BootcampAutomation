@@ -7,12 +7,12 @@
     devices:
       leaf01:
         bond_ip: "10.1.1.1/30"
-        local_net: "10.3.3.254/24"
+        local_net: "10.3.3.1/24"
         remote_net: "10.4.4.0/24"
         farside_bond_ip: "10.1.1.2"
       leaf02:
         bond_ip: "10.1.1.2/30"
-        local_net: "10.4.4.254/24"
+        local_net: "10.4.4.1/24"
         remote_net: "10.3.3.0/24"
         farside_bond_ip: "10.1.1.1"
   tasks:
