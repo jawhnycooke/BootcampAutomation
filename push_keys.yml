@@ -9,3 +9,6 @@
 
     - name: Copy our Authorized Key to the Cumulus user
       copy: src=/home/cumulus/.ssh/id_rsa.pub dest=/home/cumulus/.ssh/authorized_keys
+
+    - name: Enable passwordless sudo for the Cumulus User
+    - lineinfile: "dest=/etc/sudoers.d/10_cumulus state=present line='cumulus ALL=(ALL) NOPASSWD:ALL'"
