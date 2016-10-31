@@ -7,10 +7,26 @@
     devices:
       leaf01:
         loopback: "10.2.1.1"
-        bond0: "192.168.10.1"
+        bond0: "10.1.1.1"
+        bridge:
+          members: "swp1 swp2"
+          vlans: "100 200"
+        swp1:
+          bridge_access: "100"
+        swp2:
+          bridge_access: "200"
+        bridge.100: "10.3.3.1/24"
       leaf02:
         loopback: "10.2.1.2"
-        bond0: "192.168.10.2"
+        bond0: "10.1.1.2"
+        bridge:
+          members: "swp1 swp2"
+          vlans: "100 200"
+        swp1:
+          bridge_access: "100"
+        swp2:
+          bridge_access: "200"
+        bridge.200: "10.4.4.1/24"
   tasks:
   - name: write the networking config file
     template: src=interfaces.j2 dest=/etc/network/interfaces
