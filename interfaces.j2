@@ -5,7 +5,7 @@ auto lo
 iface lo inet loopback
   address {{ devices[ansible_hostname].loopback }}/32
 
-# The loopback network interface
+#The management network interface
 auto eth0
 iface eth0 inet dhcp
 
