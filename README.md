@@ -1,4 +1,4 @@
-# Cumulus Linux® Bootcamp -- Module 6 Source Code
+# Cumulus Linux® Bootcamp -- Module 4 Source Code
 
 
 ## Overview
@@ -8,7 +8,7 @@ This repo contains the source code for the Cumulus Networks® automation trainin
 ## Usage
 
 The Cumulus Networks® [Bootcamp](http://cumulusnetworks.com/training-and-services/) uses the code provided by this git repo for education on Automation Tools.
-The specific instructions for usage of this repository can be found in the Bootcamp I Lab Guide (Lab 6) provided by your instructor.
+The specific instructions for usage of this repository can be found in the Bootcamp I Lab Guide (Lab 4) provided by your instructor.
 The Cumulus Networks® Enablement team uses the Cumulus® **Workbench** to give students the ability to gets hand on training during Bootcamps. The Cumulus® Workbench consists of a single pre-provisioned Ubuntu virtual machine and multiple switches running Cumulus Linux.  More details on the Cumulus® Workbench can be found on the [User Guide](https://support.cumulusnetworks.com/hc/en-us/articles/203005993-Cumulus-Workbench-User-Guide)
 
 ![2 Switch Topology](https://web.wb.cumulusnetworks.com/static/img/topology/2s.png)
