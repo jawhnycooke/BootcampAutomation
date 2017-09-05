@@ -1,18 +1,39 @@
 ---
 - hosts: all
-  remote_user: root
+  remote_user: cumulus
+  become: yes
+  become_method: sudo
   vars:
     devices:
-      leaf1:
+      leaf01:
         loopback: "10.2.1.1"
-        bond0: "192.168.10.1"
-      leaf2:
+        bond0: "10.1.1.1"
+        bridge:
+          members: "swp1 swp2"
+          vlans: "100 200"
+          svi:
+            vlan: "100"
+            network: "10.3.3.1/24"
+        swp1:
+          bridge_access: "100"
+        swp2:
+          bridge_access: "200"
+      leaf02:
         loopback: "10.2.1.2"
-        bond0: "192.168.10.2"
+        bond0: "10.1.1.2"
+        bridge:
+          members: "swp1 swp2"
+          vlans: "100 200"
+          svi:
+            vlan: "200"
+            network: "10.4.4.1/24"
+        swp1:
+          bridge_access: "100"
+        swp2:
+          bridge_access: "200"
   tasks:
   - name: write the networking config file
     template: src=interfaces.j2 dest=/etc/network/interfaces
 
   - name: restart networking
     shell: ifreload -a
-
