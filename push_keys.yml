@@ -1,4 +1,4 @@
-- hosts: all         # Run this against all Hosts in the ansible inventory file
+- hosts: leaf         # Run this against all Hosts in the ansible inventory file
   remote_user: cumulus
   become: yes
   become_method: sudo

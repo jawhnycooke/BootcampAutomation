@@ -1,0 +1,33 @@
+---
+- hosts: leaf
+  remote_user: cumulus
+  become: yes
+  tasks:
+  - name: Install Cumulus NetQ
+    apt: name=cumulus-netq update_cache=yes
+
+  - name: Install Telemetry Server
+    shell: neitq add server 192.168.0.254; netq agent restart
+
+- hosts: server
+  remote_user: cumulus
+  become: yes
+  tasks:
+    - name: Install NetQ Repo Key
+      shell: wget -O- https://hostapps3.cumulusnetworks.com/setup/cumulus-host-ubuntu.pubkey | apt-key add -
+
+    - name: Install NetQ Repo Source
+      shell: wget -O- https://hostapps3.cumulusnetworks.com/setup/cumulus-host-ubuntu-xenial.list > /etc/apt/sources.list.d/cumulus-host-ubuntu-xenial.list
+
+    - name: Install Cumulus NetQ
+      apt: name=cumulus-netq update_cache=yes
+
+    - name: Restart Syslog
+      service: name=rsyslog state=restarted
+
+    - name: Enable and Start Netq
+      service: name=netqd state=started enabled=yes
+
+    - name: Install Telemetry Server
+      shell: netq add server 192.168.0.254; netq agent restart
+

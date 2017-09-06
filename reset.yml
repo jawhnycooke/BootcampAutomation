@@ -1,16 +1,13 @@
 ---
-- hosts: leaf01,leaf02
+- hosts: leaf
   any_errors_fatal: true
   become: true
   become_method: sudo
   tasks:
-    - name: Clean out /etc/network/interfaces file
-      shell: echo "" > /etc/network/interfaces
-
     - name: Add basic /etc/network/interfaces file
-      blockinfile:
+      copy:
         dest: /etc/network/interfaces
-        block: |
+        content: |
           # The loopback network interface
           auto lo
           iface lo inet loopback

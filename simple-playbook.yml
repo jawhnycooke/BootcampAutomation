@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: leaf
   remote_user: cumulus
   become: yes
   become_method: sudo
