@@ -29,9 +29,8 @@
       service: name=netqd state=started enabled=yes
 
     - name: Wait for Netqd to Start
-      wait_for:
-       port: 6379
-       delay: 7
+      pause:
+       seconds: 7
 
     - name: Install Telemetry Server
       shell: netq add server 192.168.0.254; netq agent restart
