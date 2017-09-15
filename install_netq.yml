@@ -3,11 +3,15 @@
   remote_user: cumulus
   become: yes
   tasks:
-  - name: Install Cumulus NetQ
-    apt: name=cumulus-netq update_cache=yes
+    - name: Install Cumulus NetQ
+      apt: name=cumulus-netq update_cache=yes
 
-  - name: Install Telemetry Server
-    shell: neitq add server 192.168.0.254; netq agent restart
+    - name: Wait for Netqd to Start
+      pause:
+       seconds: 7
+
+    - name: Install Telemetry Server
+      shell: netq add server 192.168.0.254; netq agent restart
 
 - hosts: server
   remote_user: cumulus
