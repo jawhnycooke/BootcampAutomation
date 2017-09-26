@@ -1,0 +1,23 @@
+---
+- name: Lab 1 Automation
+  hosts: leaf:spine
+  remote_user: cumulus
+  become: yes
+  gather_facts: yes
+  tasks:
+  - name: Write the MOTD File
+    template: src=motd.j2 dest=/etc/motd
+
+  - name: Install the License
+    shell: sudo cl-license -i http://192.168.0.254/license.lic
+
+  - name: Apply the License by Restarting Switchd
+    service: name=switchd start=restarted
+
+  - name: Apply Mgmt VRF
+    nclu:
+      template: |
+        add vrf mgmt
+      commit: true
+      description: "Lab 1: Applying Mgmt VRF"
+
