@@ -14,21 +14,28 @@
         description: "Lab 2: Installing Netq"
 
     - name: Copy Netq Configuration File
-      copy: src=netq.yml dest=/etc/netq/netq.yml
+      copy: src=netq.yml.switch dest=/etc/netq/netq.yml
+
+    - name: Copy NTP Config File
+      copy: src=ntp.conf dest=/etc/ntp.conf
+
+    - name: Restart NTP
+      service: name=ntp state=restarted
 
     - name: Stop Existing Netq Daemons (netqd and netq-agent)
       service: name={{item}} state=stopped enabled=no
       with_items:
       - "netq-agent"
       - "netqd"
+      - "ntp"
 
     - name: Start Netq Daemons in MGMT VRF (netqd@mgmt and netq-agent@mgmt)
       service: name={{item}} state=started enabled=yes
       with_items:
       - "netq-agent@mgmt"
       - "netqd@mgmt"
+      - "ntp@mgmt"
     
-
 - hosts: server
   remote_user: cumulus
   become: yes
@@ -48,13 +55,15 @@
     - name: Restart Syslog
       service: name=rsyslog state=restarted
 
+    - name: Copy NetQ Config File
+      copy: src=netq.yml.server dest=/etc/netq/netq.yml
+
+    - name: Copy NTP Config File
+      copy: src=ntp.conf dest=/etc/ntp.conf
+
+    - name: Restart NTP
+      service: name=ntp state=restarted
+
     - name: Enable and Start Netq
       service: name=netqd state=started enabled=yes
-
-    - name: Wait for Netqd to Start
-      pause:
-       seconds: 7
-
-    - name: Install Telemetry Server
-      shell: netq add server 192.168.0.254; netq agent restart
 
