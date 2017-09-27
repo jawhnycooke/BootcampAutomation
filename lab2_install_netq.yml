@@ -1,5 +1,5 @@
 ---
-- hosts: leaf
+- hosts: leaf:spine
   remote_user: cumulus
   become: yes
   tasks:
