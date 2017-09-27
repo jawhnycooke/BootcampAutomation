@@ -3,6 +3,12 @@
   remote_user: cumulus
   become: yes
   tasks:
+     - name: Install NetQ Repo Source
+       copy:
+         content: |
+           deb http://apps3.cumulusnetworks.com/repos/deb CumulusLinux-3 netq-1.1
+         dest: /etc/apt/sources.list.d/cumulus-apps-deb-cumulus.list
+
     - name: Install Cumulus NetQ
       apt: name=cumulus-netq update_cache=yes
 
@@ -27,7 +33,7 @@
       - "ntp"
 
     - name: Start Netq Daemons in MGMT VRF (netqd@mgmt and netq-agent@mgmt)
-      service: name={{item}} state=started enabled=yes
+      service: name={{item}} state=restarted enabled=yes
       with_items:
       - "netq-agent@mgmt"
       - "netqd@mgmt"
