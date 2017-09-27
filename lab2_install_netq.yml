@@ -34,10 +34,13 @@
   become: yes
   tasks:
     - name: Install NetQ Repo Key
-      shell: wget -O- https://hostapps3.cumulusnetworks.com/setup/cumulus-host-ubuntu.pubkey | apt-key add -
+      shell: wget -O- https://apps3.cumulusnetworks.com/setup/cumulus-apps-deb.pubkey | apt-key add -
 
     - name: Install NetQ Repo Source
-      shell: wget -O- https://hostapps3.cumulusnetworks.com/setup/cumulus-host-ubuntu-xenial.list > /etc/apt/sources.list.d/cumulus-host-ubuntu-xenial.list
+      copy: 
+        content: |
+          deb [arch=amd64] https://apps3.cumulusnetworks.com/repos/deb xenial netq-1.1
+        dest: /etc/apt/sources.list.d/cumulus-apps-deb-xenial.list
 
     - name: Install Cumulus NetQ
       apt: name=cumulus-netq update_cache=yes
