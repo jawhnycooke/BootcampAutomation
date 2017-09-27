@@ -3,11 +3,11 @@
   remote_user: cumulus
   become: yes
   tasks:
-     - name: Install NetQ Repo Source
-       copy:
-         content: |
-           deb http://apps3.cumulusnetworks.com/repos/deb CumulusLinux-3 netq-1.1
-         dest: /etc/apt/sources.list.d/cumulus-apps-deb-cumulus.list
+    - name: Install NetQ Repo Source
+        copy:
+          content: |
+            deb http://apps3.cumulusnetworks.com/repos/deb CumulusLinux-3 netq-1.1
+          dest: /etc/apt/sources.list.d/cumulus-apps.list
 
     - name: Install Cumulus NetQ
       apt: name=cumulus-netq update_cache=yes
