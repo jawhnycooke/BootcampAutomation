@@ -61,9 +61,10 @@
     - name: Copy NTP Config File
       copy: src=ntp.conf dest=/etc/ntp.conf
 
-    - name: Restart NTP
-      service: name=ntp state=restarted
-
-    - name: Enable and Start Netq
-      service: name=netqd state=started enabled=yes
+    - name: Restart Netq Daemons (netqd and netq-agent and ntp)
+      service: name={{item}} state=restarted enabled=yes
+      with_items:
+      - "netq-agent"
+      - "netqd"
+      - "ntp"
 
