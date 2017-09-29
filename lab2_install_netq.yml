@@ -1,5 +1,6 @@
 ---
-- hosts: leaf:spine
+- name: Lab 2: Installing NetQ on Switches
+  hosts: leaf:spine
   remote_user: cumulus
   become: yes
   tasks:
@@ -39,7 +40,8 @@
       - "netqd@mgmt"
       - "ntp@mgmt"
     
-- hosts: server
+- name: Lab 2: Installing NetQ on Servers
+  hosts: server
   remote_user: cumulus
   become: yes
   tasks:
