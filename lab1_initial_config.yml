@@ -1,5 +1,5 @@
 ---
-- name: Lab 1 Automation
+- name: Lab 1-- Install MOTD, License and MGMT VRF
   hosts: leaf:spine
   remote_user: cumulus
   become: yes
