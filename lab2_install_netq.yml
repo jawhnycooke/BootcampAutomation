@@ -52,11 +52,9 @@
           deb [arch=amd64] https://apps3.cumulusnetworks.com/repos/deb xenial netq-1.1
         dest: /etc/apt/sources.list.d/cumulus-apps-deb-xenial.list
 
+
     - name: Install Cumulus NetQ
       apt: name=cumulus-netq update_cache=yes state=latest
-
-    - name: Restart Syslog
-      service: name=rsyslog state=restarted
 
     - name: Copy NetQ Config File
       copy: src=netq.yml.server dest=/etc/netq/netq.yml
@@ -64,9 +62,19 @@
     - name: Copy NTP Config File
       copy: src=ntp.conf dest=/etc/ntp.conf
 
+    - name: Set UTC Timezone
+      copy: 
+        content: |
+          Etc/UTC
+        dest: /etc/timezone
+
+    - name: Apply Timezone Now
+      shell: dpkg-reconfigure -f noninteractive tzdata
+
     - name: Restart Netq Daemons (netqd and netq-agent and ntp)
       service: name={{item}} state=restarted enabled=yes
       with_items:
+      - "rsyslog"
       - "netq-agent"
       - "netqd"
       - "ntp"
