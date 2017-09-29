@@ -1,5 +1,5 @@
 ---
-- name: Lab 2: Installing NetQ on Switches
+- name: Lab 2--Installing NetQ on Switches
   hosts: leaf:spine
   remote_user: cumulus
   become: yes
@@ -40,7 +40,7 @@
       - "netqd@mgmt"
       - "ntp@mgmt"
     
-- name: Lab 2: Installing NetQ on Servers
+- name: Lab 2--Installing NetQ on Servers
   hosts: server
   remote_user: cumulus
   become: yes
