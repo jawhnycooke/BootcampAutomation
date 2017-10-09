@@ -79,22 +79,12 @@
                   bond: "SERVER04"
                   interface: "swp2"
                   realip: "10.0.40.3/24"
-        leaf04:
+        spine01:
             loopback: "10.255.255.101/32"
             bgpasn: "65104"
-            VLANS:
-                - vlan: "30"
-                  vrrip: "10.0.30.1/24"
-                  vrrmac: "00:00:00:00:1a:30"
-                  bond: "SERVER03"
-                  interface: "swp1"
-                  realip: "10.0.30.3/24"
-                - vlan: "40"
-                  vrrip: "10.0.40.1/24"
-                  vrrmac: "00:00:00:00:1a:40"
-                  bond: "SERVER04"
-                  interface: "swp2"
-                  realip: "10.0.40.3/24"
+        spine02:
+            loopback: "10.255.255.101/32"
+            bgpasn: "65104"
 
   tasks:
   - name: Deploy configuration
