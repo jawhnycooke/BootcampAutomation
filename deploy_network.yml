@@ -83,7 +83,7 @@
   tasks:
   - name: Deploy interface configuration
     nclu:
-        atomic: true
+        abort: true
         commit: false
         description: "Deploy interface configuration"
         commands:
