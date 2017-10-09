@@ -4,7 +4,7 @@
 
   tasks:
   - name: Clear config
-    commit: atomic
+    atomic: true
     nclu:
         commands:
             - del all
