@@ -123,7 +123,7 @@
             bgpasn: "65201"
         spine02:
             loopback: "10.255.255.102/32"
-            bgpasn: "65104"
+            bgpasn: "65201"
 
   tasks:
   - name: Deploy configuration
