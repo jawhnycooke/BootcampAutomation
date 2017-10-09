@@ -1,4 +1,4 @@
-- hosts: leafs
+- hosts: leaf
   become: yes
   become_method: sudo
   vars:
