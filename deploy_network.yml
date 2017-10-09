@@ -1,3 +1,13 @@
+- hosts: spine,leaf
+  become: yes
+  become_method: sudo
+
+  tasks:
+  - name: Clear config
+    nclu:
+        commands:
+            - del all
+
 - hosts: leaf
   become: yes
   become_method: sudo
@@ -94,14 +104,14 @@
             - add vlan {{ devices[ansible_hostname].VLANS[0].vlan }} ip address {{ devices[ansible_hostname].VLANS[0].realip }}
             - add vlan {{ devices[ansible_hostname].VLANS[1].vlan }} ip address {{ devices[ansible_hostname].VLANS[1].realip }}
             - add vlan {{ devices[ansible_hostname].VLANS[0].vlan }} ip address-virtual {{ devices[ansible_hostname].VLANS[0].vrrmac }} {{ devices[ansible_hostname].VLANS[0].vrrip }}
-            - add vlan {{ devices[ansible_hostname].VLANS[1].vlan }} ip address-virtual {{ devices[ansible_hostname].VLANS[1].vrrmac }} {{ devices[ansible_hostname].VLANS[0].vrrip }}
+            - add vlan {{ devices[ansible_hostname].VLANS[1].vlan }} ip address-virtual {{ devices[ansible_hostname].VLANS[1].vrrmac }} {{ devices[ansible_hostname].VLANS[1].vrrip }}
             - add loopback lo ip address {{ devices[ansible_hostname].loopback }}
             - add bgp autonomous-system {{ devices[ansible_hostname].bgpasn }}
             - add bgp neighbor swp51 remote-as external
             - add bgp neighbor swp52 remote-as external
             - add bgp network {{ devices[ansible_hostname].loopback }}
             - add bgp network {{ devices[ansible_hostname].VLANS[0].vrrip }}
-            - add bgp network {{ devices[ansible_hostname].VLANS[0].vrrip }}
+            - add bgp network {{ devices[ansible_hostname].VLANS[1].vrrip }}
 
 - hosts: spine
   become: yes
@@ -127,3 +137,11 @@
             - add bgp neighbor swp2 remote-as external
             - add bgp neighbor swp3 remote-as external
             - add bgp neighbor swp4 remote-as external
+
+- hosts: spine,leaf
+  become: yes
+  become_method: sudo
+
+  tasks:
+  - name:
+    shell: systemctl restart netq-agent
