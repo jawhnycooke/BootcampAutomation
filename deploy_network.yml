@@ -4,6 +4,7 @@
 
   tasks:
   - name: Clear config
+    commit: false
     nclu:
         commands:
             - del all
@@ -93,7 +94,7 @@
   tasks:
   - name: Deploy configuration
     nclu:
-        atomic: yes
+        commit: false
         description: "Deploy interface configuration"
         commands:
             - add clag peer sys-mac {{ devices[ansible_hostname].clag_mac }} interface swp49-50 primary backup-ip {{ devices[ansible_hostname].clag_backupip }}
@@ -127,8 +128,9 @@
 
   tasks:
   - name: Deploy configuration
+
     nclu:
-        atomic: yes
+        commit: false
         description: "Deploy interface configuration"
         commands:
             - add loopback lo ip address {{ devices[ansible_hostname].loopback }}
@@ -137,6 +139,14 @@
             - add bgp neighbor swp2 remote-as external
             - add bgp neighbor swp3 remote-as external
             - add bgp neighbor swp4 remote-as external
+
+- hosts: spine,leaf
+  become: yes
+  become_method: sudo
+
+  tasks:
+  - name:
+    shell: net commit
 
 - hosts: spine,leaf
   become: yes
