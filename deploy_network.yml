@@ -49,7 +49,7 @@
         commit: false
         description: "Deploy interface configuration"
         commands:
-            - add clag peer sys-mac {{ devices[ansible_hostname].clag_mac }} interfaces swp49-50 primary backup-ip {{ devices[ansible_hostname].clag_backupip }}
+            - add clag peer sys-mac {{ devices[ansible_hostname].clag_mac }} interface swp49-50 primary backup-ip {{ devices[ansible_hostname].clag_backupip }}
             - add clag port bond {{ devices[ansible_hostname].VLANS[0].bond}} interface {{ devices[ansible_hostname].VLANS[0].interface }} clag-id 1
             - add clag port bond {{ devices[ansible_hostname].VLANS[1].bond}} interface {{ devices[ansible_hostname].VLANS[1].interface }} clag-id 2
             - add bond {{ devices[ansible_hostname].VLANS[0].bond }} bridge access  {{ devices[ansible_hostname].VLANS[0].vlan }}
