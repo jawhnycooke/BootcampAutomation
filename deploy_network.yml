@@ -56,8 +56,8 @@
             - add bond {{ devices[ansible_hostname].VLANS[1].bond }} bridge access  {{ devices[ansible_hostname].VLANS[1].vlan }}
             - add vlan {{ devices[ansible_hostname].VLANS[0].vlan }} ip address {{ devices[ansible_hostname].VLANS[0].realip }}
             - add vlan {{ devices[ansible_hostname].VLANS[1].vlan }} ip address {{ devices[ansible_hostname].VLANS[1].realip }}
-            - add vlan {{ devices[ansible_hostname].VLANS[0].vlan }} ip address-virtual {{ devices[ansible_hostname].VLANS[0].realip }}
-            - add vlan {{ devices[ansible_hostname].VLANS[1].vlan }} ip address-virtual {{ devices[ansible_hostname].VLANS[1].realip }}
+            - add vlan {{ devices[ansible_hostname].VLANS[0].vlan }} ip address-virtual {{ devices[ansible_hostname].VLANS[0].vrrmac }} {{ devices[ansible_hostname].VLANS[0].vrrip }}
+            - add vlan {{ devices[ansible_hostname].VLANS[1].vlan }} ip address-virtual {{ devices[ansible_hostname].VLANS[1].vrrmac }} {{ devices[ansible_hostname].VLANS[0].vrrip }}
             - add loopback lo {{ devices[ansible_hostname].loopback }}
             - add bgp autonomous-system {{ devices[ansible_hostname].bgpasn }}
             - add bgp neighbor swp51 remote-as external
