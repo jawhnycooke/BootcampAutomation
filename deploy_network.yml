@@ -79,12 +79,6 @@
                   bond: "SERVER04"
                   interface: "swp2"
                   realip: "10.0.40.3/24"
-        spine01:
-            loopback: "10.255.255.101/32"
-            bgpasn: "65104"
-        spine02:
-            loopback: "10.255.255.101/32"
-            bgpasn: "65104"
 
   tasks:
   - name: Deploy configuration
@@ -117,6 +111,9 @@
         spine01:
             loopback: "10.255.255.101/32"
             bgpasn: "65201"
+        spine02:
+            loopback: "10.255.255.102/32"
+            bgpasn: "65104"
 
   tasks:
   - name: Deploy configuration
