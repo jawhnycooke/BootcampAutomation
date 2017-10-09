@@ -160,8 +160,9 @@
   become: yes
   become_method: sudo
 
-  tasks: Apply server config
+  tasks:
   - name: copy interfaces config file
     copy: src=./{{ ansible_hostname }}.cfg dest=/etc/network/interfaces
+
   - name: restart services
     shell: systemctl restart networking
