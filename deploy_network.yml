@@ -7,7 +7,17 @@
     nclu:
         atomic: true
         commands:
-            - del all
+          - del all
+
+  - name: Restore NTP
+    nclu:
+        atomic: true
+        commands:
+          - add time ntp server 192.168.0.254 iburst
+          - del time ntp server 0.cumulusnetworks.pool.ntp.org
+          - del time ntp server 1.cumulusnetworks.pool.ntp.org
+          - del time ntp server 2.cumulusnetworks.pool.ntp.org
+          - del time ntp server 3.cumulusnetworks.pool.ntp.org
 
 - hosts: leaf
   become: yes
