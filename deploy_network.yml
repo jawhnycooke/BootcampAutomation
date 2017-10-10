@@ -4,8 +4,8 @@
 
   tasks:
   - name: Clear config
-    atomic: true
     nclu:
+        atomic: true
         commands:
             - del all
 
