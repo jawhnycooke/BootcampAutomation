@@ -1,0 +1,31 @@
+- name: Clear config
+  nclu:
+      atomic: true
+      commands:
+        - del all
+
+- name: Copy the Default Interface Configuration in Place
+  copy:
+    dest: /etc/network/interfaces
+    content: |
+      # The loopback network interface
+      auto lo
+      iface lo inet loopback
+
+      # The primary network interface
+      auto eth0
+      iface eth0 inet dhcp
+
+- name: Apply Default Interface Configuration   
+  command: ifreload -a
+
+- name: Restore NTP
+  nclu:
+      atomic: true
+      commands:
+        - add time ntp server 192.168.0.254 iburst
+        - del time ntp server 0.cumulusnetworks.pool.ntp.org
+        - del time ntp server 1.cumulusnetworks.pool.ntp.org
+        - del time ntp server 2.cumulusnetworks.pool.ntp.org
+        - del time ntp server 3.cumulusnetworks.pool.ntp.org
+
