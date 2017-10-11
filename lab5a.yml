@@ -4,7 +4,7 @@
   roles:
   - reset
 
-- name: Lab 1 Setup PTM on Leaf01
+- name: Lab 1 Setup PTM
   hosts: leaf01,leaf02,spine01
   become: yes
   tasks:
