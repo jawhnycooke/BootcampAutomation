@@ -4,6 +4,15 @@
       commands:
         - del all
 
+- name: Remove PTM file
+  shell: rm -f /etc/ptm.d/topology.dot
+
+- name: Restart PTM Daemon to Apply New PTM Config
+  service: name=ptmd state=restarted
+
+- name: Stop FRR
+  service: name=frr state=stopped
+
 - name: Copy the Default Interface Configuration in Place
   copy:
     dest: /etc/network/interfaces
