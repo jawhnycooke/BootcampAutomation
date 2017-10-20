@@ -114,6 +114,7 @@
         commands:
             - add loopback lo ip address {{ devices[ansible_hostname].loopback }}
             - add bgp autonomous-system {{ devices[ansible_hostname].bgpasn }}
+            - add bgp network {{ devices[ansible_hostname].loopback }}
             - add bgp neighbor swp1 remote-as external
             - add bgp neighbor swp2 remote-as external
             - add bgp bestpath as-path multipath-relax
