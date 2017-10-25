@@ -5,7 +5,9 @@
         - del all
 
 - name: Remove PTM file
-  shell: rm -f /etc/ptm.d/topology.dot
+  file:
+    path: /etc/ptm.d/topology.dot
+    state: absent 
 
 - name: Restart PTM Daemon to Apply New PTM Config
   service: name=ptmd state=restarted
@@ -25,8 +27,20 @@
       auto eth0
       iface eth0 inet dhcp
 
+  # Applied like this to Handle the case where we're removing MGMT VRF
 - name: Apply Default Interface Configuration   
-  command: ifreload -a
+  shell: nohup bash -c 'sleep 2 && ifreload -a > /tmp/ifreload.out 2>&1' &
+  async: 1
+  poll: 0
+  changed_when: True
+
+
+- name: Wait 5 seconds for port 22 to become open and contain "OpenSSH"
+  wait_for:
+    port: 22
+    search_regex: OpenSSH
+    delay: 5
+  connection: local
 
 - name: Restore NTP
   nclu:
