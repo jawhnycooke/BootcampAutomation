@@ -55,10 +55,10 @@
                   interface: "swp2"
 
   tasks:
-  - name: Lab 5a -- Deploy configuration
+  - name: Lab 4a -- Deploy configuration
     nclu:
         commit: true
-        description: "Deploy interface configuration"
+        description: "Deploy Lab4a interface configuration"
         commands:
             - add loopback lo ip address {{ devices[ansible_hostname].loopback }}
             - add clag peer sys-mac {{ devices[ansible_hostname].clag_mac }} interface swp49-50 {{ devices[ansible_hostname].clag_role }} backup-ip {{ devices[ansible_hostname].clag_backupip }}

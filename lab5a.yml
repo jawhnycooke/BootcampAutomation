@@ -76,7 +76,7 @@
   - name: Lab 5a -- Deploy configuration
     nclu:
         commit: true
-        description: "Deploy interface configuration"
+        description: "Deploy Lab5a interface configuration"
         commands:
             - add clag peer sys-mac {{ devices[ansible_hostname].clag_mac }} interface swp49-50 {{ devices[ansible_hostname].clag_role }} backup-ip {{ devices[ansible_hostname].clag_backupip }}
             - add clag port bond {{ devices[ansible_hostname].VLANS[0].bond}} interface {{ devices[ansible_hostname].VLANS[0].interface }} clag-id 1
