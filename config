@@ -1,0 +1,46 @@
+#!/bin/bash
+
+target=$1
+lab=$2
+whole_lab_number=${lab:3}
+lab_number=${whole_lab_number:0:1}
+lab_letter=${whole_lab_number:1}
+base_dir=/home/cumulus/BootcampAutomation
+
+
+logfile="$base_dir/configure_servers.log"
+
+if [ "$target" != "server" ]; then
+    echo "    target must be 'server' ex. 'config server lab3'"
+    exit 1
+fi
+
+if [ "${lab:0:3}" != "lab" ]; then
+    echo "    must configure a lab. ex. 'config server lab3'"
+    exit 1
+fi
+
+if ! [[ "$lab_number" =~ ^[1-9]$ ]]; then
+    echo "    must be a lab 1 through 9. ex. 'config server lab3'"
+    exit 1
+fi
+
+if ! [[ "$lab_letter" =~ ^[a-b]$ ]]; then
+    echo "    if using a letter, must be 'a' through 'b'. ex. 'config server lab4a'"
+    exit 1
+fi
+
+
+echo "### Starting execution @ $(date +'%F %r') ###" > $logfile
+echo "        running: \"/usr/local/bin/ansible-playbook $base_dir/$lab.yml -l $target \" " > $logfile
+
+echo -e "\n\n ### Configuring Servers for Lab$whole_lab_number... \n\n"
+/usr/local/bin/ansible-playbook $base_dir/$lab.yml -l $target | tee -a $logfile | grep "TASK" 
+if [ "$?" == "0" ]; then
+    echo -e "\n\n ### Server Configuration Successful! ###\n\n"
+    rm -f $logfile
+else
+    echo "### Execution completed @ $(date +'%F %r') ###" > $logfile
+    echo "     ERROR: Something went wrong, you may want to tell your instructor."
+    echo "               Logfile located at: $logfile"
+fi
