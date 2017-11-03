@@ -65,6 +65,7 @@
             - add clag port bond {{ devices[ansible_hostname].VLANS[0].bond}} interface {{ devices[ansible_hostname].VLANS[0].interface }} clag-id 1
             - add clag port bond {{ devices[ansible_hostname].VLANS[1].bond}} interface {{ devices[ansible_hostname].VLANS[1].interface }} clag-id 2
             - add bond {{ devices[ansible_hostname].VLANS[0].bond }} bridge access 10
+            - add bond {{ devices[ansible_hostname].VLANS[1].bond }} bridge access 10
 
 - name: Restart NetQ
   hosts: leaf01,leaf02,spine01
