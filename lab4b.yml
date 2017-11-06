@@ -37,7 +37,6 @@
             clag_role: "primary"
             clag_mac: "44:38:39:FF:00:01"
             clag_backupip: "192.168.0.12"
-            loopback: "10.255.255.1/32"
             VLANS:
                 - vlan: "10"
                   vrrip: "10.0.10.1/24"
@@ -55,7 +54,6 @@
             clag_role: "secondary"
             clag_mac: "44:38:39:FF:00:01"
             clag_backupip: "192.168.0.11"
-            loopback: "10.255.255.2/32"
             VLANS:
                 - vlan: "10"
                   vrrip: "10.0.10.1/24"
@@ -76,7 +74,6 @@
         commit: true
         description: "Deploy Lab4b interface configuration"
         commands:
-            - add loopback lo ip address {{ devices[ansible_hostname].loopback }}
             - add clag peer sys-mac {{ devices[ansible_hostname].clag_mac }} interface swp49-50 {{ devices[ansible_hostname].clag_role }} backup-ip {{ devices[ansible_hostname].clag_backupip }}
             - add clag port bond {{ devices[ansible_hostname].VLANS[0].bond}} interface {{ devices[ansible_hostname].VLANS[0].interface }} clag-id 1
             - add clag port bond {{ devices[ansible_hostname].VLANS[1].bond}} interface {{ devices[ansible_hostname].VLANS[1].interface }} clag-id 2
