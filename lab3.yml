@@ -57,7 +57,7 @@
   become: yes
   tasks:
   - name: Copy Interfaces Configuration File
-    copy: src=./{{ ansible_hostname }}_lab3.cfg dest=/etc/network/interfaces
+    copy: src=./server_configs/{{ ansible_hostname }}_lab3.cfg dest=/etc/network/interfaces
 
   - name: Restart Networking
     service: name=networking state=restarted
