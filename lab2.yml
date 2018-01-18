@@ -46,9 +46,6 @@
     register: commit_history_output
     failed_when: ('Lab2 Commit' not in commit_history_output.stdout)
 
-  - name: Enable restserver-gunicorn
-    service: name=restserver-gunicorn enabled=yes
-
   - name: Enable and Start restserver
     service: name=restserver state=started enabled=yes
 
