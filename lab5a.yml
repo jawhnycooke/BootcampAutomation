@@ -89,7 +89,7 @@
             - add vlan {{ devices[ansible_hostname].VLANS[1].vlan }} ip address-virtual {{ devices[ansible_hostname].VLANS[1].vrrmac }} {{ devices[ansible_hostname].VLANS[1].vrrip }}
             - add loopback lo ip address {{ devices[ansible_hostname].loopback }}
             - add bgp autonomous-system {{ devices[ansible_hostname].bgpasn }}
-            - add bgp neighbor swp51 remote-as external
+            - add bgp neighbor swp51 interface remote-as external
             - add bgp network {{ devices[ansible_hostname].loopback }}
             - add bgp network {{ devices[ansible_hostname].VLANS[0].vrrip }}
             - add bgp network {{ devices[ansible_hostname].VLANS[1].vrrip }}
@@ -115,8 +115,8 @@
             - add loopback lo ip address {{ devices[ansible_hostname].loopback }}
             - add bgp autonomous-system {{ devices[ansible_hostname].bgpasn }}
             - add bgp network {{ devices[ansible_hostname].loopback }}
-            - add bgp neighbor swp1 remote-as external
-            - add bgp neighbor swp2 remote-as external
+            - add bgp neighbor swp1 interface remote-as external
+            - add bgp neighbor swp2 interface remote-as external
             - add bgp bestpath as-path multipath-relax
 
 - name: Restart NetQ
