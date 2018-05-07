@@ -1,0 +1,6 @@
+- name: Wipe Configuration
+  hosts: spine,leaf
+  become: yes
+  roles:
+  - reset
+
