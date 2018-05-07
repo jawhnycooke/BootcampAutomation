@@ -1,0 +1,58 @@
+- name: Collect Current Hostname
+  shell: hostname
+  register: hostname
+  changed_when: False
+  check_mode: no
+  when: ansible_hostname is not defined
+
+- name: Set ansible_hostname variable
+  set_fact:
+    ansible_hostname: "{{ hostname.stdout }}"
+  changed_when: False
+  when: ansible_hostname is not defined
+
+- name: Collect System Parameters in JSON
+  shell: /usr/cumulus/bin/decode-syseeprom -j
+  register: decode_syseeprom_json
+  changed_when: False
+
+- name: Convert JSON into Ansible native variable type
+  set_fact:
+    decode_syseeprom: "{{decode_syseeprom_json.stdout | from_json }}"
+  changed_when: False
+
+- name: Update Hostname
+  hostname:
+    name: "{{ inventory_hostname }}"
+  when: ansible_hostname != inventory_hostname
+  
+- name: Update Hosts
+  template: src=hosts.j2 dest=/etc/hosts
+
+- name: Update DNS
+  copy:  src=resolv.conf dest=/etc/resolv.conf
+
+- name: Update dhcp-sethostname
+  copy: src=dhcp-sethostname dest=/etc/dhcp/dhclient-exit-hooks.d/dhcp-sethostname=
+
+- name: Copy over MOTD
+  template: src=motd.j2 dest=/etc/motd
+
+- name: Copy over Pre Login Banner
+  copy: src=banner dest=/etc/issue.net
+
+- name: Ensure The Pre Login Banner is Displayed by SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?Banner'
+    line: 'Banner /etc/issue.net'
+
+- name: Disable ReverseDNS name Lookup for Logins via SSH
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^UseDNS'
+    line: 'UseDNS no'
+
+- name: Restart SSH Service
+  service: name=sshd state=restarted enabled=yes
+  changed_when: False
