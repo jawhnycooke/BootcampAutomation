@@ -6,7 +6,7 @@
     ansible_user: "cumulus"
     ansible_ssh_pass: "CumulusLinux!"
     ansible_become_pass: "CumulusLinux!"
-    private_ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+    public_ssh_key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
   tasks:
   - name: Create automation User Account
     user: 
@@ -19,5 +19,5 @@
     authorized_key:
       user: automation
       state: present
-      key: "{{ private_ssh_key }}"
+      key: "{{ public_ssh_key }}"
     become: true
