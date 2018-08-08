@@ -18,10 +18,10 @@
   - name: Restart PTM Daemon to Apply new Topology.dot file
     service: name=ptmd state=restarted
 
-  - name: Test PTM
-    shell: ptmctl
-    register: ptm_output
-    failed_when: ('pass' not in ptm_output.stdout)
+#  - name: Test PTM
+#    shell: ptmctl
+#    register: ptm_output
+#    failed_when: ('pass' not in ptm_output.stdout)
 
   - name: Install License
     shell: cl-license -i http://192.168.0.254/license.lic
