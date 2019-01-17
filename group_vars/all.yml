@@ -3,7 +3,7 @@
             clag_role: "primary"
             clag_mac: "44:38:39:FF:00:01"
             clag_backupip: "192.168.0.12"
-            loopback: "10.255.255.1/32"
+            loopback: "192.168.255.1/32"
             bgpasn: "65101"
             VLANS:
                 - vlan: "10"
@@ -22,7 +22,7 @@
             clag_role: "secondary"
             clag_mac: "44:38:39:FF:00:01"
             clag_backupip: "192.168.0.11"
-            loopback: "10.255.255.2/32"
+            loopback: "192.168.255.2/32"
             bgpasn: "65102"
             VLANS:
                 - vlan: "10"
@@ -41,7 +41,7 @@
             clag_role: "primary"
             clag_mac: "44:38:39:FF:00:02"
             clag_backupip: "192.168.0.14"
-            loopback: "10.255.255.3/32"
+            loopback: "192.168.255.3/32"
             bgpasn: "65103"
             VLANS:
                 - vlan: "30"
@@ -60,7 +60,7 @@
             clag_role: "secondary"
             clag_mac: "44:38:39:FF:00:02"
             clag_backupip: "192.168.0.13"
-            loopback: "10.255.255.4/32"
+            loopback: "192.168.255.4/32"
             bgpasn: "65104"
             VLANS:
                 - vlan: "30"
@@ -76,8 +76,8 @@
                   interface: "swp2"
                   realip: "10.0.40.3/24"
         spine01:
-            loopback: "10.255.255.101/32"
+            loopback: "192.168.255.101/32"
             bgpasn: "65201"
         spine02:
-            loopback: "10.255.255.102/32"
+            loopback: "192.168.255.102/32"
             bgpasn: "65201"
